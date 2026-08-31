@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/qamarq/better-auth-evp/compare/v1.0.1...v1.0.2) (2026-08-31)
+
+
+### Bug Fixes
+
+* restrict verification surface and revoke stale sessions on promotion ([61bc289](https://github.com/qamarq/better-auth-evp/commit/61bc289f1c265be5f7301e1d13a8c526ae628dd1))
+
 ## [1.0.1](https://github.com/qamarq/better-auth-evp/compare/v1.0.0...v1.0.1) (2026-08-31)
 
 

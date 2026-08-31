@@ -33,6 +33,16 @@ import { emailVerificationProtocol } from "better-auth-evp";
 
 export const auth = betterAuth({
   // ...
+  account: {
+    accountLinking: {
+      enabled: true,
+      // Add "email-verification-protocol" alongside your other trusted
+      // providers (e.g. "email-otp", "magic-link") so a user who already
+      // has an account can also sign into it via EVP, instead of getting
+      // a separate, unlinked account for the same email.
+      trustedProviders: ["email-otp", "email-verification-protocol"],
+    },
+  },
   plugins: [
     emailVerificationProtocol({
       // Must match the origin your Chrome origin-trial token, DNS

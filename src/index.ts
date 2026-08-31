@@ -21,23 +21,6 @@ const evpVerifyBodySchema = z.object({
   nonce: z.string(),
 });
 
-/**
- * [Email Verification Protocol](https://developer.chrome.com/blog/email-verification-protocol-origin-trial)
- * plugin for Better Auth.
- *
- * EVP lets a browser that supports the (Chrome-only, origin-trial-gated)
- * protocol prove a user owns the email address they typed into a form,
- * without sending an OTP or magic link. It is entirely progressive
- * enhancement: unsupported browsers, mailbox providers that haven't
- * implemented the issuer side, or a user simply not signed into their
- * mailbox all result in an empty/unverifiable token. Callers MUST treat
- * `verified: false` (or the nonce/verify endpoints being unreachable) as a
- * normal, expected outcome and fall back to whatever sign-in method the
- * app already uses (email OTP, magic link, password, ...) - this plugin
- * does not implement a fallback itself, it only adds the EVP fast path.
- *
- * @see https://github.com/philnash/email-verification-api
- */
 export function emailVerificationProtocol<T extends Record<string, any> = {}>(
   options: EvpPluginOptions<T>,
 ) {
@@ -53,23 +36,8 @@ export function emailVerificationProtocol<T extends Record<string, any> = {}>(
   return {
     id: "email-verification-protocol",
     endpoints: {
-      /**
-       * ### Endpoint
-       *
-       * GET `/evp/nonce`
-       *
-       * ### API Methods
-       *
-       * **server:** `auth.api.evpNonce`
-       *
-       * **client:** `authClient.evp.getNonce`
-       *
-       * Issues a single-use nonce to bind into the hidden
-       * `email-verification-token` input's `nonce` attribute. Call this
-       * once per sign-in attempt, right before rendering the form.
-       */
-      evpNonce: createAuthEndpoint(
-        "/evp/nonce",
+      evpGetNonce: createAuthEndpoint(
+        "/evp/get-nonce",
         { method: "GET" },
         async (ctx) => {
           const nonce = generateRandomString(24, "a-z", "A-Z", "0-9");
@@ -81,25 +49,6 @@ export function emailVerificationProtocol<T extends Record<string, any> = {}>(
           return ctx.json({ nonce, expiresIn: nonceExpiresIn });
         },
       ),
-      /**
-       * ### Endpoint
-       *
-       * POST `/evp/verify`
-       *
-       * ### API Methods
-       *
-       * **server:** `auth.api.evpVerify`
-       *
-       * **client:** `authClient.evp.verify`
-       *
-       * Verifies the browser-issued Email Verification Token. On success,
-       * signs the user in (creating an account first if none exists and
-       * sign-up isn't disabled) exactly like any other passwordless method
-       * and returns `{ verified: true }`. On any failure it returns
-       * `{ verified: false, reason }` instead of throwing, since a failure
-       * here is an expected, common outcome that the caller should recover
-       * from by falling back to a different sign-in method.
-       */
       evpVerify: createAuthEndpoint(
         "/evp/verify",
         { method: "POST", body: evpVerifyBodySchema },

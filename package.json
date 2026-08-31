@@ -1,0 +1,67 @@
+{
+  "name": "better-auth-evp",
+  "version": "0.1.0",
+  "description": "Email Verification Protocol (Chrome origin trial) plugin for Better Auth, with automatic fallback to any other sign-in method",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm build",
+    "lint": "pnpm lint:style && pnpm lint:typecheck",
+    "lint:style": "eslint src --ext .ts",
+    "lint:typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
+  },
+  "peerDependencies": {
+    "better-auth": "^1.5.0",
+    "email-verification-api": "^0.1.0",
+    "zod": "^3.0.0 || ^4.0.0"
+  },
+  "dependencies": {
+    "email-verification-api": "^0.1.0"
+  },
+  "keywords": [
+    "better-auth",
+    "better-auth-plugin",
+    "email-verification-protocol",
+    "email-verification",
+    "chrome",
+    "origin-trial",
+    "authentication",
+    "passwordless"
+  ],
+  "author": "Kamil Marczak",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qamarq/better-auth-evp"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@types/node": "^25.3.5",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "semantic-release": "^24.2.0",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
+  }
+}

@@ -7,6 +7,8 @@
 
 [Email Verification Protocol (EVP)](https://developer.chrome.com/blog/email-verification-protocol-origin-trial) plugin for [Better Auth](https://www.better-auth.com), with automatic fallback to whatever other sign-in method you already have.
 
+**[Live preview →](https://evp.kamilmarczak.pl)** - a minimal sign-in screen wired up with this plugin, source in [`evp-demo`](https://github.com/qamarq/evp-demo).
+
 ## What is EVP?
 
 EVP is an experimental, **Chrome-only** browser capability (currently gated behind an [origin trial](https://developer.chrome.com/origintrials)) that lets a user prove they own an email address without typing an OTP or clicking a magic link. The browser talks to the user's mailbox provider directly and, if the user is signed in there, hands your form a signed token proving ownership - all triggered by the normal act of filling in and submitting an email field.

@@ -28,6 +28,7 @@ export interface EvpPluginOptions<T extends Record<string, any> = {}> {
   origin: string;
   nonceExpiresIn?: number;
   disableSignUp?: boolean;
+  allowedEmailDomains?: string[];
   userFields?: (verified: EvpVerifiedEmail) => T;
   onVerified?: (
     verified: EvpVerifiedEmail & { userId: string },

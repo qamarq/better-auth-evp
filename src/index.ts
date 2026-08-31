@@ -1,5 +1,9 @@
 import type { BetterAuthPlugin } from "better-auth";
-import { APIError, createAuthEndpoint } from "better-auth/api";
+import {
+  APIError,
+  createAuthEndpoint,
+  formCsrfMiddleware,
+} from "better-auth/api";
 import { setSessionCookie } from "better-auth/cookies";
 import { generateRandomString } from "better-auth/crypto";
 import { verifyEmailToken } from "email-verification-api";
@@ -51,13 +55,27 @@ export function emailVerificationProtocol<T extends Record<string, any> = {}>(
       ),
       evpVerify: createAuthEndpoint(
         "/evp/verify",
-        { method: "POST", body: evpVerifyBodySchema },
+        {
+          method: "POST",
+          body: evpVerifyBodySchema,
+          use: [formCsrfMiddleware],
+        },
         async (ctx) => {
           const email = ctx.body.email.trim().toLowerCase();
           const { token, nonce } = ctx.body;
 
           if (!z.email().safeParse(email).success) {
             throw new APIError("BAD_REQUEST", { message: "Invalid email" });
+          }
+
+          if (options.allowedEmailDomains) {
+            const domain = email.split("@")[1];
+            if (!options.allowedEmailDomains.includes(domain)) {
+              return ctx.json({
+                verified: false,
+                reason: "domain_not_allowed",
+              });
+            }
           }
 
           const nonceRecord =
@@ -114,6 +132,7 @@ export function emailVerificationProtocol<T extends Record<string, any> = {}>(
           } else {
             user = existing.user;
             if (!user.emailVerified) {
+              await ctx.context.internalAdapter.deleteUserSessions(user.id);
               user = await ctx.context.internalAdapter.updateUser(user.id, {
                 emailVerified: true,
               });

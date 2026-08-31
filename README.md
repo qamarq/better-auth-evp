@@ -38,6 +38,7 @@ export const auth = betterAuth({
       // Must match the origin your Chrome origin-trial token, DNS
       // `_email-verification` record, etc. were issued for.
       origin: "https://example.com",
+      allowedEmailDomains: ["example.com"],
       disableSignUp: false,
       userFields: (verified) => ({
         // any additional fields for a newly created user
@@ -116,8 +117,8 @@ async function handleEmailSubmit(email: string, form: HTMLFormElement) {
 
 ### Server (`auth.api`)
 
-- `evpNonce()` - `GET /evp/nonce` - issues a single-use nonce, valid for `nonceExpiresIn` seconds (default 120).
-- `evpVerify({ email, token, nonce })` - `POST /evp/verify` - verifies the token and, on success, creates a session (and a user, unless `disableSignUp` is set). Returns `{ verified: false, reason }` instead of throwing on any expected failure (invalid/expired nonce, verification failure, email mismatch, sign-up disabled).
+- `evpGetNonce()` - `GET /evp/get-nonce` - issues a single-use nonce, valid for `nonceExpiresIn` seconds (default 120).
+- `evpVerify({ email, token, nonce })` - `POST /evp/verify` - verifies the token and, on success, creates a session (and a user, unless `disableSignUp` is set). Returns `{ verified: false, reason }` instead of throwing on any expected failure (invalid/expired nonce, disallowed email domain, verification failure, email mismatch, sign-up disabled).
 
 ### Client (`authClient.evp`)
 
@@ -130,6 +131,7 @@ async function handleEmailSubmit(email: string, form: HTMLFormElement) {
 | ---------------- | ------------------------------------------------ | ---------- | --------------------------------------------------------- |
 | `origin`          | `string`                                         | (required) | This relying party's absolute origin, used as `audience`. |
 | `nonceExpiresIn`  | `number`                                         | `120`      | Seconds a nonce stays valid.                               |
+| `allowedEmailDomains` | `string[]`                                   | optional, unrestricted if omitted | Restricts which email domains `/evp/verify` will even attempt to verify. The email field in your own form is client-side validation only and can be bypassed by calling the API directly - without this option, a caller can make the server perform a DNS lookup + issuer JWKS fetch against any domain they choose (SSRF/abuse surface). Strongly recommended whenever your app only expects a fixed set of domains. |
 | `disableSignUp`   | `boolean`                                        | `false`    | Reject verified emails with no existing account.           |
 | `userFields`      | `(verified) => T`                                | -          | Extra fields for a newly created user.                     |
 | `onVerified`      | `(verified & { userId }) => void \| Promise<void>` | -        | Side-effect hook after a session is created.                |

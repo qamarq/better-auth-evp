@@ -18,13 +18,14 @@ Because this depends on: the user running an origin-trial build of Chrome, their
 ## Installation
 
 ```bash
-npm install better-auth-evp email-verification-api
+npm install better-auth-evp
 ```
+
+Uses [`email-verification-api`](https://www.npmjs.com/package/email-verification-api) (does the actual SD-JWT/DNS/issuer verification, built by the folks at [Resend](https://resend.com)) as a dependency.
 
 ### Peer Dependencies
 
 - `better-auth` ^1.5.0
-- [`email-verification-api`](https://www.npmjs.com/package/email-verification-api) ^0.1.0 (does the actual SD-JWT/DNS/issuer verification, built by the folks at [Resend](https://resend.com))
 - `zod` ^3.0.0 || ^4.0.0
 
 ## Server Setup

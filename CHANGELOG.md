@@ -1,3 +1,5 @@
+## [1.0.5](https://github.com/qamarq/better-auth-evp/compare/v1.0.4...v1.0.5) (2026-09-01)
+
 ## [1.0.4](https://github.com/qamarq/better-auth-evp/compare/v1.0.3...v1.0.4) (2026-09-01)
 
 ## [1.0.3](https://github.com/qamarq/better-auth-evp/compare/v1.0.2...v1.0.3) (2026-08-31)

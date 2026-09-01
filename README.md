@@ -7,7 +7,7 @@
 
 [Email Verification Protocol (EVP)](https://developer.chrome.com/blog/email-verification-protocol-origin-trial) plugin for [Better Auth](https://www.better-auth.com), with automatic fallback to whatever other sign-in method you already have.
 
-**[Live preview →](https://evp.kamilmarczak.pl?utm_source=github&utm_medium=referral&utm_campaign=docs)** - a minimal sign-in screen wired up with this plugin, source in [`example`](./example) ([`evp-demo`](https://github.com/qamarq/evp-demo) repo).
+**[Live preview →](https://evp.kamilmarczak.pl?utm_source=github&utm_medium=referral&utm_campaign=docs)** - a minimal sign-in screen wired up with this plugin, source in [`evp-demo`](https://github.com/qamarq/evp-demo) repo.
 
 ## What is EVP?
 

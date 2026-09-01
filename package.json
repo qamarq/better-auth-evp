@@ -1,6 +1,6 @@
 {
   "name": "better-auth-evp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Email Verification Protocol (Chrome origin trial) plugin for Better Auth, with automatic fallback to any other sign-in method",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

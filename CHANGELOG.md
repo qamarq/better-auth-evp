@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/qamarq/better-auth-evp/compare/v1.0.7...v1.0.8) (2026-09-01)
+
+
+### Bug Fixes
+
+* drop email-verification-api from peerDependencies ([820d4ba](https://github.com/qamarq/better-auth-evp/commit/820d4ba3ffdf81b1420b547005889f259f63f7ba))
+
 ## [1.0.7](https://github.com/qamarq/better-auth-evp/compare/v1.0.6...v1.0.7) (2026-09-01)
 
 ## [1.0.6](https://github.com/qamarq/better-auth-evp/compare/v1.0.5...v1.0.6) (2026-09-01)

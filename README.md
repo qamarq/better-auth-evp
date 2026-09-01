@@ -75,16 +75,19 @@ export const authClient = createAuthClient({
 
 ## Origin Trial Token
 
-As a participating site you must register for the origin trial and serve the token on any page that renders the email form, either as a meta tag:
+As a participating site you must register for the origin trial and serve the token on any page that renders the email form.
+
+To get your token:
+
+1. Go to the [EVP origin trial registration page](https://developer.chrome.com/origintrials/#/register_trial/10696049115004929) and sign in.
+2. Enter your web origin (and check the box if you want to match subdomains too).
+3. Accept the terms.
+4. Copy the generated token.
+
+Then serve it as a meta tag in the `<head>` of any page that renders the email form (we don't use the `Origin-Trial` HTTP header):
 
 ```html
 <meta http-equiv="origin-trial" content="YOUR_TOKEN" />
-```
-
-or as an HTTP response header:
-
-```
-Origin-Trial: YOUR_TOKEN
 ```
 
 This plugin does not manage that token for you - it's static per-origin configuration, not something to fetch from an API.

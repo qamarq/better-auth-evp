@@ -24,7 +24,7 @@ npm install better-auth-evp email-verification-api
 ### Peer Dependencies
 
 - `better-auth` ^1.5.0
-- `email-verification-api` ^0.1.0 (does the actual SD-JWT/DNS/issuer verification)
+- [`email-verification-api`](https://www.npmjs.com/package/email-verification-api) ^0.1.0 (does the actual SD-JWT/DNS/issuer verification, built by the folks at [Resend](https://resend.com))
 - `zod` ^3.0.0 || ^4.0.0
 
 ## Server Setup
